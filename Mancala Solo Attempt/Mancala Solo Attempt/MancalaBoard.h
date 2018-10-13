@@ -8,17 +8,8 @@ private:
 
 public:
 	MancalaBoard() {
-		for (int i = 0; i < 14; i++) {
-			if (i == 6 || i == 13) {
-				mancalaGameArray[i] = 0;
-				continue;
-			}
-			else if (i == 1) {
-				mancalaGameArray[i] = 12;
-				continue;
-			}
-			mancalaGameArray[i] = 4;
-		}
+		int tempArray[]{ 4,4,4,4,4,4,0,4,4,4,4,4,4,0 };
+		std::copy(tempArray, tempArray + 14, mancalaGameArray);
 	}
 
 	~MancalaBoard() {
@@ -30,21 +21,33 @@ public:
 		@param The index to take from
 		@return Return the value at that index
 	*/
-	int getMancalaGameIndex(int index) {
+	int GetMancalaGameIndex(int index) {
 		return mancalaGameArray[index];
 	}
 
 	/*
+		Set the value at the "index" position of the mancalaGameArray
+		to 0
+		@param The index of the array to set to 0
 	*/
-	void setValueOfMancalaGameIndexTo0(int index) {
+	void SetValueOfMancalaGameIndexTo0(int index) {
 		mancalaGameArray[index] = 0;
 	}
 
-	void setValueOfMancalaGameIndex(int index, int value) {
+	/*
+		Set the value at the "index" position of the mancalaGameArray
+		to a number
+		@param index The index of the array to set to a value
+		@param value The number to set the value of the index to
+	*/
+	void SetValueOfMancalaGameIndex(int index, int value) {
 		mancalaGameArray[index] = value;
 	}
 
-	void renderingBoard();
+	//Class member functions
+	void RenderingBoard();
+	bool CheckIfGameEnds();
+	void AddUpPoints();
 };
 
 
