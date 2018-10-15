@@ -1,3 +1,6 @@
+/*
+	Class commenting
+*/
 #pragma once
 #include <string>
 #include <Windows.h>
@@ -11,7 +14,16 @@ private:
 	int mancalaIndexLocation;
 	bool playerTurn;
 public:
-	Player(int playerNumber, std::string name = "None")
+	/*
+		This is set to be the default consturctor for Player Class
+		@param playerNumber There can only 2 players exist at a time
+							therefore this number will be set with 
+							1 or 2
+		@param name This is the name of the player. If the player 
+					does not enter a name, set it to "Player"
+
+	*/
+	Player(int playerNumber, std::string name = "Player")
 		: name{ name } {
 		if (playerNumber == 1) {
 			int newArray[] = { 0,1,2,3,4,5};
@@ -62,12 +74,9 @@ public:
 		return playerTurn;
 	}
 
-
 	//Members functions
-	void PlayerMoves(int index, Player &opponent, MancalaBoard &board);
+	void PlayerMoves(int, Player &opponent, MancalaBoard &board);
 	int CheckIfIndexIsInPlayersRange(int arr[], int firstIndex, int rightSide, int index);
-	void PerformSteal(int index, Player &opponent, MancalaBoard &board);
-
-
+	void PerformSteal(int, Player &opponent, MancalaBoard &board);
 };
 

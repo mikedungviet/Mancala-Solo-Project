@@ -26,8 +26,7 @@ int Player::CheckIfIndexIsInPlayersRange(int arr[], int firstIndex, int lastInde
 		else
 			return CheckIfIndexIsInPlayersRange(arr, midIndex + 1, lastIndex, number);
 	}
-	
-	return -1;
+	return -1; //Return -1 if the number is not in the array
 }
 
 /*
@@ -46,11 +45,17 @@ void Player::PerformSteal(int index, Player &opponent, MancalaBoard &board) {
 
 
 /*
-	This fuction performs a series of step to 
+	This fuction performs a series of step to change the players move
+	@param choice This is the player choice
+	@param opponent The opponent player object
+	@param board The playing board
 */
-void Player::PlayerMoves(int index, Player &opponent, MancalaBoard &board) {
+void Player::PlayerMoves(int choice, Player &opponent, MancalaBoard &board) {
 	playerTurn = false;
 	opponent.SetPlayerTurn(true);
+
+	int index = playerStorageIndex[choice];
+
 	int counter = board.GetMancalaGameIndex(index);
 	board.SetValueOfMancalaGameIndexTo0(index);
 
@@ -61,7 +66,8 @@ void Player::PlayerMoves(int index, Player &opponent, MancalaBoard &board) {
 		if (index > 13)
 			index = 0;
 
-		//Skips the opponent's mancala if the index is equal to theirs
+		/*Skips the opponent's mancala if the index is equal to their
+		  Mancala Location */
 		if (index == opponent.GetPlayerStorageIndex(6)) {
 			counter++;
 			continue;
@@ -69,20 +75,20 @@ void Player::PlayerMoves(int index, Player &opponent, MancalaBoard &board) {
 
 		board.mancalaGameArray[index]++;
 
-		//Check for conditions
+		//Check for special conditions
 		if (counter == 1) {
 			int lastIndex = CheckIfIndexIsInPlayersRange(playerStorageIndex, 0, 5, index);
+			//Conditions for stealing
 			if (lastIndex >= 0 && lastIndex < 7 && board.GetMancalaGameIndex(index)== 1) {
 				PerformSteal(index, opponent, board);
 			}
+			//Conditions for getting a free turn
 			else if (index == mancalaIndexLocation) {
 				playerTurn = true;
 				opponent.SetPlayerTurn(false);
 			}
 		}
-
 		board.RenderingBoard();
-		Sleep(1500);
-		
+		Sleep(500);
 	}
 }

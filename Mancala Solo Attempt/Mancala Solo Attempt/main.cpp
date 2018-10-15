@@ -5,16 +5,12 @@
 #include "Player.h"
 #include <stdlib.h>
 
-std::string MultiplayerGame(MancalaBoard &board);
+std::string MultiplayerGame();
 
 
 int main() {
-	MancalaBoard playingBoard;
-	std::string winner = MultiplayerGame(playingBoard);
+	std::string winner = MultiplayerGame();
 	std::cout << "The winner is: " << winner << std::endl;
-
-
-
 
 	_getch();
 	return 0;
@@ -34,27 +30,35 @@ bool CheckForValidChoice(int choice) {
 }
 
 /*
+	This function creates a local multiplayer game
+	@param board This is the playing board
+	@return Return the name of the winner
 */
-std::string MultiplayerGame(MancalaBoard &board) {
+std::string MultiplayerGame() {
+	//Create a playing board
+	MancalaBoard playingboard;
+
+	//Creating first player 
 	std::string name;
 	std::cout << "Enter a Name for Player 1: ";
 	std::cin >> name;
 	Player player1(1, name);
+	system("CLS");
 
+	//Creating second player
 	std::cout << "Enter a Name for Player 2: ";
 	std::cin >> name;
 	Player player2(2, name);
 	system("CLS");
 
+	//Game loop
 	while (true) {
-		board.RenderingBoard();
+		playingboard.RenderingBoard();
 		int choice;
 
 		//Player 1's Turn
 		if (player1.GetPlayerTurn()) {
 			std::cout << player1.GetName() << "'s turn: ";
-
-
 			//Check for Valid Choice
 			while (std::cin >> choice) {
 				if (choice > 0 && choice <= 6) {
@@ -66,8 +70,7 @@ std::string MultiplayerGame(MancalaBoard &board) {
 					continue;
 				}
 			}
-
-			player1.PlayerMoves(player1.GetPlayerStorageIndex(choice), player2, board);
+			player1.PlayerMoves(choice, player2, playingboard);
 		}
 
 		//Player2's Turn
@@ -84,17 +87,15 @@ std::string MultiplayerGame(MancalaBoard &board) {
 					continue;
 				}
 			}
-			std::cout << player2.GetPlayerStorageIndex(choice) << std::endl;
-
-			player2.PlayerMoves(player2.GetPlayerStorageIndex(choice), player1, board);
+			player2.PlayerMoves(choice, player1, playingboard);
 		}
 
 		//Check if the game ends
-		if (board.CheckIfGameEnds()) {
-			board.AddUpPoints();
-			if (board.GetMancalaGameIndex(6) > board.GetMancalaGameIndex(13))
+		if (playingboard.CheckIfGameEnds()) {
+			playingboard.AddUpPoints();
+			if (playingboard.GetMancalaGameIndex(6) > playingboard.GetMancalaGameIndex(13))
 				return player1.GetName();
-			else if (board.GetMancalaGameIndex(6) < board.GetMancalaGameIndex(13))
+			else if (playingboard.GetMancalaGameIndex(6) < playingboard.GetMancalaGameIndex(13))
 				return player2.GetName();
 		}
 

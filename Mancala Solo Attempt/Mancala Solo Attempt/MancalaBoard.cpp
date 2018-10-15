@@ -1,11 +1,13 @@
 #include "MancalaBoard.h"
 
-
+/*
+	This function renders the board along with how many stones are in each pit
+*/
 void MancalaBoard::RenderingBoard() {
 	std::cout << "________________________________________________________________" << std::endl;
 	std::cout << "|\t|\t|\t|\t|\t|\t|\t|\t|" << std::endl << "|\t";
 
-
+	//Renders the number of pieces in each player 2 pits
 	for (int i = 12; i >= 7; i--) {
 		if (mancalaGameArray[i] >= 10)
 			std::cout << "|  " << mancalaGameArray[i] << "   ";
@@ -14,6 +16,8 @@ void MancalaBoard::RenderingBoard() {
 	}
 
 	std::cout << "|\t|\n|\t|\t|\t|\t|\t|\t|\t|\t|" << std::endl;
+
+	//Renders the Mancala for Player 2
 	if (mancalaGameArray[13] >= 10)
 		std::cout << "|  " << mancalaGameArray[13] << "   |";
 	else
@@ -21,22 +25,20 @@ void MancalaBoard::RenderingBoard() {
 
 	std::cout << "_______|_______|_______|_______|_______|_______";
 
-
+	//Renders the Mancala for Player 1
 	if (mancalaGameArray[6] >= 10)
 		std::cout << "|  " << mancalaGameArray[6] << "   |";
 	else
 		std::cout << "|   " << mancalaGameArray[6] << "   |";
-
-
 	std::cout << "\n|\t|\t|\t|\t|\t|\t|\t|\t|\n|\t";
+
+	//Renders the number of pieces in each player 1 pits
 	for (int i = 0; i < 6; i++) {
 		if (mancalaGameArray[i] >= 10)
 			std::cout << "|  " << mancalaGameArray[i] << "   ";
 		else
 			std::cout << "|   " << mancalaGameArray[i] << "   ";
 	}
-
-
 	std::cout << "|\t|\n|\t|\t|\t|\t|\t|\t|\t|\t|" << std::endl;
 	std::cout << "|_______|_______|_______|_______|_______|_______|_______|_______|" << std::endl;
 }

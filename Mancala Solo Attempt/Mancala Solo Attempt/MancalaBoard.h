@@ -1,3 +1,6 @@
+/*
+	Class commenting 
+*/
 #pragma once
 #include <iostream>
 class MancalaBoard
